@@ -111,8 +111,12 @@ var debugpp = (function() {
 	enableExt('test:log');
 	enableExt('test:*');
 	```
+	@param {string} [disableSubspaces=false] - if set to true it will not enable subspaces (log, warn, error) 
 	*/
-	debugpp.enableExt = function(namespace){
+	debugpp.enableExt = function(namespace, disableSubspaces){
+		if(typeof disableSubspaces === 'undefined' || disableSubspaces === true){
+			namespace += '.*';
+		}
 		var namespace = namespace.replace(/\./g, ':');
 		debug.enable(namespace);
 	};
@@ -127,8 +131,12 @@ var debugpp = (function() {
 	enableExt('test:log');
 	enableExt('test:*');
 	```
+	@param {string} [disableSubspaces=false] - if set to true it will not disable subspaces (log, warn, error)
 	*/
-	debugpp.disableExt = function(namespace){
+	debugpp.disableExt = function(namespace, disableSubspaces){
+		if(typeof disableSubspaces === 'undefined' || disableSubspaces === true){
+			namespace += '.*';
+		}
 		namespace = namespace.replace(/\./g, ':');
 		debug.disable(namespace);
 	};
