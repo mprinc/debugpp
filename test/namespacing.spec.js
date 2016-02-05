@@ -39,7 +39,7 @@ describe('debugpp: ', function() {
 
 		debugTest.log("Hello");
 
-		expect(logSpy).to.have.been.calledTwice;
+		expect(logSpy).to.have.been.callCount(0);
 	});
 
 	xit('it should debug visually', function() {
