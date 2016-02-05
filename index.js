@@ -88,9 +88,9 @@ var debugpp = (function() {
 		namespace = namespace.replace(/\./g, ':');
 
 		if(enable){
-			this.enableExt(namespace+".*");
+			this.enableExt(namespace);
 		}else if(typeof enable === 'boolean' && enable === false){
-			this.disableExt(namespace+".*");
+			this.disableExt(namespace);
 		}
 
 		var def = debug(namespace);
