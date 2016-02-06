@@ -2,7 +2,7 @@
   "name": "debugpp",
   "description": "Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs package",
   "main": [
-    "index.js",
+    "index.js"
   ],
   "repository": {
     "type": "git",
