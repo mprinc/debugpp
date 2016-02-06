@@ -12,7 +12,10 @@ A namespaced logging package with semantical subspaces (log, warn, error)
 This package augments [debug]{@link https://www.npmjs.com/package/debug} nodejs package
 
 # Installation
+## node
 	npm install debugpp --save
+## browser
+	bower install debugpp --save
 
 # Features
 
