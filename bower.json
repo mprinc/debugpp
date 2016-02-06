@@ -9,7 +9,7 @@
     "url": "git://github.com/mprinc/debugpp.git"
   },
   "dependencies": {
-    "debug": "^2.2.0"
+    "debug": ""
   },
   "devDependencies": {
     "chai": "^3.4.1",
@@ -50,7 +50,11 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    ".gitignore",
+    ".travis.yml",
+    ".coveralls.yml",
+    ".package.json"
   ],
   "private": false
 }
