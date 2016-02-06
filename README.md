@@ -45,6 +45,7 @@ For more detailed and complex examples, please check the ***test*** folder in th
 * provide better logging function suplementing, a way toward Winston, bunyan
 
 # Release History
+* 1.1.5 Fixed suport for browser (bower)
 * 1.1.4 Support for browser (bower)
 * 1.1.3 Test support for browser (bower)
 * 1.1.0 Initial release
