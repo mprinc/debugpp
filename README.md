@@ -1,6 +1,6 @@
 # debugpp
 
-Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs package
+A namespaced logging package with semantical subspaces (log, warn, error)
 
 [![Build Status](https://travis-ci.org/mprinc/debugpp.svg)](https://travis-ci.org/mprinc/debugpp)
 [![Dependency Status](https://david-dm.org/mprinc/debugpp.svg)](https://david-dm.org/mprinc/debugpp)
@@ -8,6 +8,8 @@ Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs
 [![Gittip](http://img.shields.io/gittip/mprinc.png)](https://www.gittip.com/mprinc/)
 
 [![NPM](https://nodei.co/npm/debugpp.png?downloads=true&stars=true)](https://nodei.co/npm/debugpp/)
+
+This package augments [debug]{@link https://www.npmjs.com/package/debug} nodejs package
 
 # Installation
 	npm install debugpp --save
@@ -17,6 +19,7 @@ Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs
 * dot-namespacing
 * semantic subspaces support
 	* log, warn, error, ...
+* supports both node and browser environment
 
 ## Example
 
@@ -36,5 +39,11 @@ For more detailed and complex examples, please check the ***test*** folder in th
 # Test
 	npm test
 
+# ToDo
+
+* disabling only some of semantic domains (log and warn but not error)
+* provide better logging function suplementing, a way toward Winston, bunyan
+
 # Release History
+* 1.1.3 Test support for browser (bower)
 * 1.1.0 Initial release

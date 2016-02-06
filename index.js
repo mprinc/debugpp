@@ -15,15 +15,12 @@ var debugpp = require('debugpp');
 /**
 @description
 ## Info
-This module provides different Promise related (implemented with) patterns and sollutions
-It contains semaphore implementation for syncing consumers of resources
-(like simultaneous writing in files, etc), and concurrent itterators that are limited 
-by number of parallel execution of iterators (if we want to limit number of parallel acceses
-to webservice, etc).
+This package extends debug package @see {@link https://www.npmjs.com/package/debug}.
+
 ## Dependencies
-This module requires {@link https://www.npmjs.com/package/q | q npm module} (please check also the @see {@link https://github.com/kriskowal/q | q github})
+This module requires [debug module]{@link https://www.npmjs.com/package/debug} (please check also the @see {@link https://github.com/visionmedia/debug | debug github})
 @module module:debugpp
-@requires module:q
+@requires module:debug
 */
 
 var debug = null;
@@ -153,71 +150,12 @@ var debugpp = (function() {
 			debugpp._internal("Enabling namespace: %s", ns);
 
 			debug.enableExt(ns);
-		}		
+		}
 	}
 
 	debugpp._internal("Debug is extended");
 
 	return debugpp;
-
-/**
-waits on semaphore
-@memberof debugpp.Semaphore#
-@function wait
-@param {string} consumerName - name of the consumer
-@returns {external:Promise} promise that will get resolved after the semaphore is available.
-The only possibility for promise to get rejected is when semaphore gets destroyed
-In that case it will get rejected with an @see {@link Error}.
-*/
-Semaphore.prototype.wait = function(consumerName){
-	var that = this;
-
-	var deferred = Q.defer();
-	if(this.debug) console.log("[Semaphore:%s:wait] this.resourcesNo:%d", this.name, this.resourcesNo);
-
-	this.resourcesNo--;
-	// enough available resources
-	if(this.resourcesNo>=0){
-		if(this.debug) console.log("[Semaphore:%s:wait] available", this.name);
-
-		if(this.supportConsumersLog){
-			this.consumersLog.push({
-				consumerId: this.consumerUniqueId++,
-				consumerName: consumerName
-			});
-		}
-		deferred.resolve(this.resourcesNo, consumerId);
-	// no enough available resources
-	}else{
-		if(this.debug) console.log("[Semaphore:%s:wait] not available", this.name);
-		var that = this;
-		if(this.supportConsumersLog){
-			var consumerId = this.consumerUniqueId++;
-			this.waitingQueue.push({
-				func: function(){
-					if(that.debug) console.log("[Semaphore:%s:wait:callback] became available", that.name);
-					that.consumersLog.push({
-						consumerId: consumerId,
-						consumerName: consumerName
-					});
-					deferred.resolve(that.resourcesNo);
-				},
-				consumerId: consumerId,
-				consumerName: consumerName					
-			});				
-
-		}else{
-			this.waitingQueue.push(function(){
-				if(that.debug) console.log("[Semaphore:%s:wait:callback] became available", that.name);
-				deferred.resolve(that.resourcesNo);
-			});				
-		}
-	}			
-	return deferred.promise;
-};
-
-
-return Semaphore;
 })();
 
 // node.js world
