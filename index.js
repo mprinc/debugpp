@@ -23,7 +23,7 @@ This module requires [debug module]{@link https://www.npmjs.com/package/debug} (
 @requires module:debug
 */
 
-var debug = null;
+var debug = (typeof global !== 'undefined' && global.debug) || (typeof window !== 'undefined' && window.debug);
 
 if(typeof require !== 'undefined'){
 	debug = require('debug');

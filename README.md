@@ -48,6 +48,7 @@ For more detailed and complex examples, please check the ***test*** folder in th
 * provide better logging function suplementing, a way toward Winston, bunyan
 
 # Release History
+* 1.1.9 Global/Window/browser export fix
 * 1.1.8 Global export fix
 * 1.1.7 Extra test coverage, adding debugpp to global.* namespace (useful for node testing of a frontend code)
 * 1.1.6 Fixed problem with missing versions for debug package (bower)
