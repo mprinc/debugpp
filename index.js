@@ -159,7 +159,7 @@ var debugpp = (function() {
 	return debugpp;
 })();
 
-if(typeof 'global' !== 'undefined') global.debugpp = debugpp;
+if(typeof global !== 'undefined') global.debugpp = debugpp;
 
 // node.js world
 if(typeof module !== 'undefined'){
