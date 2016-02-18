@@ -150,7 +150,7 @@ var debugpp = (function() {
 			var ns = debugNSs[nsi].trim();
 			debugpp._internal("Enabling namespace: %s", ns);
 
-			debug.enableExt(ns);
+			debugpp.enableExt(ns);
 		}
 	}
 
