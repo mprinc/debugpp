@@ -1,5 +1,3 @@
-var debugpp = require('..');
-
 var chai = require("chai");
 var expect = chai.expect;
 // var should = chai.should;
@@ -17,11 +15,15 @@ chai.use(sinonChai);
 // testing:
 // cdd; cd nodejs/libs/debugpp
 // node node_modules/mocha/bin/mocha test/namespacing.spec.js
+
+global.window = {};
+var debugpp = require('..');
+
 describe('debugpp: ', function() {
 	it('it should exist', function() {
 		expect(debugpp).to.not.be.null;
 		expect(debugpp).to.have.property('name');
-		expect(debugpp.name).to.equal('debugpp');		
+		expect(debugpp.name).to.equal('debugpp');
 	});
 
 	it('it should create debugger', function() {
@@ -29,6 +31,11 @@ describe('debugpp: ', function() {
 		expect(debugTest).to.have.property('log');
 		expect(debugTest).to.have.property('warn');
 		expect(debugTest).to.have.property('error');
+	});
+
+	it('it should get in global and window variables', function() {
+		expect(global.debugpp).to.exist;
+		expect(global.window.debugpp).to.exist;
 	});
 
 	it('it should not debug when disabled', function() {
@@ -89,4 +96,59 @@ describe('debugpp: ', function() {
 		expect(warnSpy).to.have.been.calledWith(sinon.match(/.*Hm\?!.*/));
 		expect(errorSpy).to.have.been.calledWith(sinon.match(/.*Huston!!!.*/));;
 	});
+
+	it('it should disable subspaces', function() {
+		debugpp.disableExt('test2', true);
+		var debugTest = debugpp.debug('test2');
+		var debugTestSub1 = debugpp.debug('test2.sub1');
+
+		var logSpy = sinon.spy();
+		var logSub1Spy = sinon.spy();
+		debugTest.warn.log = logSpy;
+		debugTestSub1.warn.log = logSub1Spy;
+
+		debugTest.warn("Hello");
+		debugTestSub1.warn("Hello sub1");
+
+		expect(logSpy).to.have.been.callCount(0);
+		expect(logSub1Spy).to.have.been.callCount(0);
+	});
+
+	it('it should enable subspaces', function() {
+		debugpp.enableExt('test3.warn');
+		debugpp.enableExt('test4', true);
+		var debugTest3 = debugpp.debug('test3');
+		var debugTest3Sub1 = debugpp.debug('test3.sub1');
+		var debugTest4 = debugpp.debug('test4');
+		var debugTest4Sub1 = debugpp.debug('test4.sub1');
+		var debugTest4Sub2 = debugpp.debug('test4.sub1.sub2');
+
+		var log3Spy = sinon.spy();
+		var log3SpyError = sinon.spy();
+		var log3Sub1Spy = sinon.spy();
+		var log4Spy = sinon.spy();
+		var log4Sub1Spy = sinon.spy();
+		var log4Sub2Spy = sinon.spy();
+		debugTest3.warn.log = log3Spy;
+		debugTest3.error.log = log3SpyError;
+		debugTest3Sub1.warn.log = log3Sub1Spy;
+		debugTest4.warn.log = log4Spy;
+		debugTest4Sub1.warn.log = log4Sub1Spy;
+		debugTest4Sub2.warn.log = log4Sub2Spy;
+
+		debugTest3.warn("Hello 3");
+		debugTest3.error("Herror 3");
+		debugTest3Sub1.warn("Hello 3 sub1");
+		debugTest4.warn("Hello 4");
+		debugTest4Sub1.warn("Hello 4 sub1");
+		debugTest4Sub2.warn("Hello 4 sub2");
+
+		expect(log3Spy).to.have.been.calledOnce;
+		expect(log3SpyError).to.have.been.callCount(0);
+		expect(log3Sub1Spy).to.have.been.callCount(0);
+		expect(log4Spy).to.have.been.calledOnce;
+		expect(log4Sub1Spy).to.have.been.calledOnce;
+		expect(log4Sub2Spy).to.have.been.calledOnce;
+	});
+
 });

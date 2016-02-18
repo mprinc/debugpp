@@ -1,6 +1,6 @@
 {
   "name": "debugpp",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs package",
   "main": "index.js",
   "directories": {

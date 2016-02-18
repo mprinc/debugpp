@@ -1,7 +1,7 @@
 /**
 debugpp
 Copyright(c) 2015-2016 Sasha Rudan <mprinc@gmail.com>
-MIT Licensed 
+MIT Licensed
 Augmented (namespaces, ...) debug nodejs package
 *
 ```js
@@ -77,7 +77,7 @@ var debugpp = (function() {
 	@memberof debugpp#
 	@function debug
 	@param {string} namespace - namespace of debugger (both ':' and '.' are possible for namespacing)
-	@param {boolean} [enable=undefined] - if set to true enables namespace, 
+	@param {boolean} [enable] - if set to true enables namespace,
 		if set to false disables namespace, if ommited follows external settings (localStorage, DEBUG, ...)
 	@returns {debugpp} semantic-namespaced debug (log, warn, error)
 	*/
@@ -85,9 +85,9 @@ var debugpp = (function() {
 		namespace = namespace.replace(/\./g, ':');
 
 		if(enable){
-			this.enableExt(namespace);
+			this.enableExt(namespace, true);
 		}else if(typeof enable === 'boolean' && enable === false){
-			this.disableExt(namespace);
+			this.disableExt(namespace, true);
 		}
 
 		var def = debug(namespace);
@@ -108,10 +108,10 @@ var debugpp = (function() {
 	enableExt('test:log');
 	enableExt('test:*');
 	```
-	@param {string} [disableSubspaces=false] - if set to true it will not enable subspaces (log, warn, error) 
+	@param {string} [enableSubspaces=true] - if set to true it will enable subspaces (log, warn, error)
 	*/
-	debugpp.enableExt = function(namespace, disableSubspaces){
-		if(typeof disableSubspaces === 'undefined' || disableSubspaces === true){
+	debugpp.enableExt = function(namespace, enableSubspaces){
+		if(enableSubspaces === true){
 			namespace += '.*';
 		}
 		var namespace = namespace.replace(/\./g, ':');
@@ -125,13 +125,14 @@ var debugpp = (function() {
 	@param {string} namespace - namespace of debugger (both ':' and '.' are possible for namespacing)
 	to disable semantic subnamespace just provide it as a subspace, for example:
 	```js
-	enableExt('test:log');
+	enableExt('test.log');
+	enableExt('test.*');
 	enableExt('test:*');
 	```
-	@param {string} [disableSubspaces=false] - if set to true it will not disable subspaces (log, warn, error)
+	@param {string} [disableSubspaces=true] - if set to true it will disable subspaces (log, warn, error)
 	*/
 	debugpp.disableExt = function(namespace, disableSubspaces){
-		if(typeof disableSubspaces === 'undefined' || disableSubspaces === true){
+		if(disableSubspaces === true){
 			namespace += '.*';
 		}
 		namespace = namespace.replace(/\./g, ':');
@@ -158,11 +159,13 @@ var debugpp = (function() {
 	return debugpp;
 })();
 
+if(typeof 'global' !== 'undefined') global.debugpp = debugpp;
+
 // node.js world
 if(typeof module !== 'undefined'){
 	module.exports = (function() {
 		return debugpp;
-	})();	
+	})();
 }
 if(typeof window != 'undefined'){
 	window.debugpp = debugpp;
