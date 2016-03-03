@@ -116,7 +116,7 @@ describe('debugpp: ', function() {
 
 	it('it should enable subspaces', function() {
 		debugpp.enableExt('test3.warn');
-		debugpp.enableExt('test4', true);
+		debugpp.enableExt('test4');
 		var debugTest3 = debugpp.debug('test3');
 		var debugTest3Sub1 = debugpp.debug('test3.sub1');
 		var debugTest4 = debugpp.debug('test4');

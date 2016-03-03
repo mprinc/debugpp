@@ -111,11 +111,12 @@ var debugpp = (function() {
 	@param {string} [enableSubspaces=true] - if set to true it will enable subspaces (log, warn, error)
 	*/
 	debugpp.enableExt = function(namespace, enableSubspaces){
-		if(enableSubspaces === true){
-			namespace += '.*';
-		}
 		var namespace = namespace.replace(/\./g, ':');
 		debug.enable(namespace);
+		if(enableSubspaces !== false){
+			namespace += ':*';
+			debug.enable(namespace);
+		}
 	};
 
 	/**
@@ -132,11 +133,12 @@ var debugpp = (function() {
 	@param {string} [disableSubspaces=true] - if set to true it will disable subspaces (log, warn, error)
 	*/
 	debugpp.disableExt = function(namespace, disableSubspaces){
-		if(disableSubspaces === true){
-			namespace += '.*';
-		}
 		namespace = namespace.replace(/\./g, ':');
 		debug.disable(namespace);
+		if(disableSubspaces !== false){
+			namespace += '.*';
+			debug.disable(namespace);
+		}
 	};
 
 	// register internal debugger stream
