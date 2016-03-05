@@ -46,6 +46,7 @@ For more detailed and complex examples, please check the ***test*** folder in th
 
 * disabling only some of semantic domains (log and warn but not error)
 * provide better logging function suplementing, a way toward Winston, bunyan
+* provide logging the place where error got triggered, same as with debug (bower install debug)
 
 # Release History
 * 1.1.10 fixes for localStorage

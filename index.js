@@ -28,7 +28,8 @@ var debug = (typeof global !== 'undefined' && global.debug) || (typeof window !=
 if(typeof require !== 'undefined'){
 	debug = require('debug');
 }
-else if(!debug){
+/* istanbul ignore if  */
+if(!debug){
 	throw new Error("Missing dependency: debug");
 }
 
@@ -113,6 +114,7 @@ var debugpp = (function() {
 	debugpp.enableExt = function(namespace, enableSubspaces){
 		var namespace = namespace.replace(/\./g, ':');
 		debug.enable(namespace);
+		/* istanbul ignore else  */
 		if(enableSubspaces !== false){
 			namespace += ':*';
 			debug.enable(namespace);
@@ -143,11 +145,12 @@ var debugpp = (function() {
 
 	// register internal debugger stream
 	debug.enable('debugPP');
-	debugpp._internal = debugpp.debug('debugPP');
+	debugpp._internal = debug('debugPP');
 
 	// enable debugger streams
 	if(typeof localStorage !== 'undefined'){
-		var debugNSs = localStorage.debug && localStorage.debug.split(";") || ['*'];
+		debugpp._internal("localStorage exists. localStorage.debug: ", localStorage.debug);
+		var debugNSs = (typeof localStorage.debug !== 'undefined') ? localStorage.debug.split(";") : ['*'];
 		for(var nsi in debugNSs){
 			var ns = debugNSs[nsi].trim();
 			debugpp._internal("Enabling namespace: %s", ns);

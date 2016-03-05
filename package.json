@@ -1,62 +1,67 @@
 {
-  "name": "debugpp",
-  "version": "0.0.0-semantically-released",
-  "description": "Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs package",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec",
-    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec test",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "commit": "git-cz"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mprinc/debugpp"
-  },
-  "keywords": [
-    "log",
-    "logging",
-    "debug",
-    "debugging",
-    "semantical",
-    "namespacing"
-  ],
-  "author": "Sasha Rudan <mprinc@gmail.com> (https://github.com/mprinc)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mprinc/debugpp/issues"
-  },
-  "homepage": "https://github.com/mprinc/debugpp",
-  "dependencies": {
-    "debug": "^2.2.0"
-  },
-  "devDependencies": {
-    "chai": "^3.4.1",
-    "chai-as-promised": "^5.1.0",
-    "commitizen": "^2.5.0",
-    "coveralls": "^2.11.6",
-    "cz-conventional-changelog": "^1.1.5",
-    "gulp": "^3.9.0",
-    "gulp-htmlmin": "^1.3.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-minify-html": "^1.0.5",
-    "ink-docstrap": "^1.1.0",
-    "istanbul": "^0.4.1",
-    "jsdoc": "^3.4.0",
-    "jshint": "^2.9.1",
-    "jshint-stylish": "^2.1.0",
-    "mocha": "^2.3.4",
-    "mocha-lcov-reporter": "^1.0.0",
-    "semantic-release": "^4.3.5",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    "name": "debugpp",
+    "version": "0.0.0-semantically-released",
+    "description": "Augmented (dot-namespaces, semantic support (log, warn, error) ...) debug nodejs package",
+    "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "istanbul cover -x 'test/*' _mocha -- -R spec test",
+        "test:single": "_mocha test",
+        "check-coverage": "istanbul check-coverage --statements 90 --branches 50 --functions 90 --lines 90",
+        "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+        "commit": "git-cz"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mprinc/debugpp"
+    },
+    "keywords": [
+        "log",
+        "logging",
+        "debug",
+        "debugging",
+        "semantical",
+        "namespacing"
+    ],
+    "author": "Sasha Rudan <mprinc@gmail.com> (https://github.com/mprinc)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mprinc/debugpp/issues"
+    },
+    "homepage": "https://github.com/mprinc/debugpp",
+    "dependencies": {
+        "debug": "^2.2.0"
+    },
+    "devDependencies": {
+        "chai": "^3.4.1",
+        "chai-as-promised": "^5.1.0",
+        "commitizen": "^2.5.0",
+        "coveralls": "^2.11.6",
+        "cz-conventional-changelog": "^1.1.5",
+        "ghooks": "^1.0.3",
+        "gulp": "^3.9.0",
+        "gulp-htmlmin": "^1.3.0",
+        "gulp-jshint": "^2.0.0",
+        "gulp-minify-html": "^1.0.5",
+        "ink-docstrap": "^1.1.0",
+        "istanbul": "^0.4.2",
+        "jsdoc": "^3.4.0",
+        "jshint": "^2.9.1",
+        "jshint-stylish": "^2.1.0",
+        "mocha": "^2.3.4",
+        "mocha-lcov-reporter": "^1.0.0",
+        "semantic-release": "^4.3.5",
+        "sinon": "^1.17.3",
+        "sinon-chai": "^2.8.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        },
+        "ghooks": {
+            "pre-commit": "npm run test && npm run check-coverage"
+        }
     }
-  }
 }

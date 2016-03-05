@@ -17,9 +17,11 @@ chai.use(sinonChai);
 // node node_modules/mocha/bin/mocha test/namespacing.spec.js
 
 global.window = {};
-var debugpp = require('..');
+global.localStorage = {debug: "empty_space"};
 
 describe('debugpp: ', function() {
+	var debugpp = require('..');
+
 	it('it should exist', function() {
 		expect(debugpp).to.not.be.null;
 		expect(debugpp).to.have.property('name');
@@ -116,7 +118,7 @@ describe('debugpp: ', function() {
 
 	it('it should enable subspaces', function() {
 		debugpp.enableExt('test3.warn');
-		debugpp.enableExt('test4');
+		debugpp.enableExt('test4', true);
 		var debugTest3 = debugpp.debug('test3');
 		var debugTest3Sub1 = debugpp.debug('test3.sub1');
 		var debugTest4 = debugpp.debug('test4');
