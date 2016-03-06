@@ -39,6 +39,19 @@ Please check [documentation](http://mprinc.github.io/debugpp/ "debugpp Documenta
 
 For more detailed and complex examples, please check the ***test*** folder in the repository
 
+## Using localStorage
+
+In order to preserve debugging settings you can store them in the localStorage:
+
+```js
+localStorage.debug = '*';
+```
+
+or
+```js
+localStorage.debug = 'cw.tabs.TabsController';
+```
+
 # Test
 
 	npm test
