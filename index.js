@@ -151,10 +151,12 @@ var debugpp = (function() {
 
 	// enable debugger streams
 	if(typeof localStorage !== 'undefined'){
-		// recover the localStorage after the: debug.enable('debugPP');
-		localStorage.debug = localStorageDebug;
-		debugpp._internal("localStorage exists. localStorage.debug: ", localStorage.debug);
-		var debugNSs = (typeof localStorage.debug !== 'undefined') ? localStorage.debug.split(";") : ['*'];
+		debugpp._internal("localStorage exists. localStorage.debug: %, localStorage.debugpp: %", localStorage.debug, localStorage.debugpp);
+
+		// work nicely with debug
+		if(!localStorage.debugpp && localStorageDebug) localStorage.debugpp = localStorageDebug;
+
+		var debugNSs = (typeof localStorage.debugpp !== 'undefined') ? localStorage.debugpp.split(";") : ['*'];
 		for(var nsi in debugNSs){
 			var ns = debugNSs[nsi].trim();
 			debugpp._internal("Enabling namespace: %s", ns);
