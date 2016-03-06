@@ -143,12 +143,16 @@ var debugpp = (function() {
 		}
 	};
 
+	var localStorageDebug = localStorage && localStorage.debug;
+
 	// register internal debugger stream
 	debug.enable('debugPP');
 	debugpp._internal = debug('debugPP');
 
 	// enable debugger streams
 	if(typeof localStorage !== 'undefined'){
+		// recover the localStorage after the: debug.enable('debugPP');
+		localStorage.debug = localStorageDebug;
 		debugpp._internal("localStorage exists. localStorage.debug: ", localStorage.debug);
 		var debugNSs = (typeof localStorage.debug !== 'undefined') ? localStorage.debug.split(";") : ['*'];
 		for(var nsi in debugNSs){
