@@ -143,7 +143,7 @@ var debugpp = (function() {
 		}
 	};
 
-	var localStorageDebug = localStorage && localStorage.debug;
+	var localStorageDebug = (typeof localStorage !== 'undefined')  && localStorage.debug;
 
 	// register internal debugger stream
 	debug.enable('debugPP');
