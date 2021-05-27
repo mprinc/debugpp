@@ -125,13 +125,13 @@ describe('debugpp: ', function() {
 		var debugTest4Sub1 = debugpp.debug('test4.sub1');
 		var debugTest4Sub2 = debugpp.debug('test4.sub1.sub2');
 
-		var log3Spy = sinon.spy();
+		var log3WarnSpy = sinon.spy();
 		var log3SpyError = sinon.spy();
 		var log3Sub1Spy = sinon.spy();
 		var log4Spy = sinon.spy();
 		var log4Sub1Spy = sinon.spy();
 		var log4Sub2Spy = sinon.spy();
-		debugTest3.warn.log = log3Spy;
+		debugTest3.warn.log = log3WarnSpy;
 		debugTest3.error.log = log3SpyError;
 		debugTest3Sub1.warn.log = log3Sub1Spy;
 		debugTest4.warn.log = log4Spy;
@@ -145,7 +145,7 @@ describe('debugpp: ', function() {
 		debugTest4Sub1.warn("Hello 4 sub1");
 		debugTest4Sub2.warn("Hello 4 sub2");
 
-		expect(log3Spy).to.have.been.calledOnce;
+		expect(log3WarnSpy).to.have.been.calledOnce;
 		expect(log3SpyError).to.have.been.callCount(0);
 		expect(log3Sub1Spy).to.have.been.callCount(0);
 		expect(log4Spy).to.have.been.calledOnce;

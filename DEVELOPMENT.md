@@ -46,3 +46,9 @@ Push will
 ```sh
 npm publish
 ```
+
+# Current workaround
+
++ Tests are breaking, as the `debug` package doesn't seem to store debug namespaces, so we need to remove `pre-commit` from `package.json`.
++ `semantic-release` is also not set so we need to go to https://www.npmjs.com/package/debugpp and see the latest version, then manually set it `package.json` and then
++ `npm publish`
