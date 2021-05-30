@@ -52,7 +52,7 @@
         "jshint-stylish": "^2.1.0",
         "mocha": "^2.3.4",
         "mocha-lcov-reporter": "^1.0.0",
-        "semantic-release": "^4.3.5",
+        "semantic-release": "^17.2.3",
         "sinon": "^1.17.3",
         "sinon-chai": "^2.8.0"
     },
